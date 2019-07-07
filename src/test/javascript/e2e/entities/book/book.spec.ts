@@ -3,6 +3,7 @@ import { browser, ExpectedConditions as ec, promise } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import { BookComponentsPage, BookDeleteDialog, BookUpdatePage } from './book.page-object';
+import * as path from 'path';
 
 const expect = chai.expect;
 
@@ -12,6 +13,9 @@ describe('Book e2e test', () => {
   let bookUpdatePage: BookUpdatePage;
   let bookComponentsPage: BookComponentsPage;
   let bookDeleteDialog: BookDeleteDialog;
+  const fileNameToUpload = 'logo-jhipster.png';
+  const fileToUpload = '../../../../../../src/main/webapp/content/images/' + fileNameToUpload;
+  const absolutePath = path.resolve(__dirname, fileToUpload);
 
   before(async () => {
     await browser.get('/');
@@ -44,7 +48,7 @@ describe('Book e2e test', () => {
       bookUpdatePage.setNameInput('name'),
       bookUpdatePage.setPublishYearInput('publishYear'),
       bookUpdatePage.setCopiesInput('5'),
-      bookUpdatePage.setPictureInput('picture'),
+      bookUpdatePage.setCoverInput(absolutePath),
       bookUpdatePage.publisherSelectLastOption()
       // bookUpdatePage.authorSelectLastOption(),
     ]);
@@ -52,7 +56,7 @@ describe('Book e2e test', () => {
     expect(await bookUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
     expect(await bookUpdatePage.getPublishYearInput()).to.eq('publishYear', 'Expected PublishYear value to be equals to publishYear');
     expect(await bookUpdatePage.getCopiesInput()).to.eq('5', 'Expected copies value to be equals to 5');
-    expect(await bookUpdatePage.getPictureInput()).to.eq('picture', 'Expected Picture value to be equals to picture');
+    expect(await bookUpdatePage.getCoverInput()).to.endsWith(fileNameToUpload, 'Expected Cover value to be end with ' + fileNameToUpload);
     await bookUpdatePage.save();
     expect(await bookUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

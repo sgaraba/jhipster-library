@@ -21,9 +21,14 @@
                 <dd>
                     <span>{{book.copies}}</span>
                 </dd>
-                <dt><span jhiTranslate="libraryApp.book.picture">Picture</span></dt>
+                <dt><span jhiTranslate="libraryApp.book.cover">Cover</span></dt>
                 <dd>
-                    <span>{{book.picture}}</span>
+                    <div *ngIf="book.cover">
+                        <a (click)="openFile(book.coverContentType, book.cover)">
+                            <img [src]="'data:' + book.coverContentType + ';base64,' + book.cover" style="max-width: 100%;" alt="book image"/>
+                        </a>
+                        {{book.coverContentType}}, {{byteSize(book.cover)}}
+                    </div>
                 </dd>
                 <dt><span jhiTranslate="libraryApp.book.publisher">Publisher</span></dt>
                 <dd>

@@ -13,7 +13,7 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20190707105535",
+    "changelogDate": "20190707114819",
     "entityTableName": "publisher",
     "dto": "no",
     "pagination": "pagination",

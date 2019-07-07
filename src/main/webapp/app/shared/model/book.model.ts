@@ -7,7 +7,8 @@ export interface IBook {
   name?: string;
   publishYear?: string;
   copies?: number;
-  picture?: string;
+  coverContentType?: string;
+  cover?: any;
   publisher?: IPublisher;
   authors?: IAuthor[];
 }
@@ -19,7 +20,8 @@ export class Book implements IBook {
     public name?: string,
     public publishYear?: string,
     public copies?: number,
-    public picture?: string,
+    public coverContentType?: string,
+    public cover?: any,
     public publisher?: IPublisher,
     public authors?: IAuthor[]
   ) {}

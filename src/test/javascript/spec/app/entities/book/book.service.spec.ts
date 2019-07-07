@@ -23,7 +23,7 @@ describe('Service Tests', () => {
       service = injector.get(BookService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Book(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA');
+      elemDefault = new Book(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0, 'image/png', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -63,7 +63,7 @@ describe('Service Tests', () => {
             name: 'BBBBBB',
             publishYear: 'BBBBBB',
             copies: 1,
-            picture: 'BBBBBB'
+            cover: 'BBBBBB'
           },
           elemDefault
         );
@@ -85,7 +85,7 @@ describe('Service Tests', () => {
             name: 'BBBBBB',
             publishYear: 'BBBBBB',
             copies: 1,
-            picture: 'BBBBBB'
+            cover: 'BBBBBB'
           },
           elemDefault
         );

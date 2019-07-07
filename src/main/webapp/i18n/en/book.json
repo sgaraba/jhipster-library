@@ -20,7 +20,7 @@
       "name": "Name",
       "publishYear": "Publish Year",
       "copies": "Copies",
-      "picture": "Picture",
+      "cover": "Cover",
       "publisher": "Publisher",
       "author": "Author"
     }

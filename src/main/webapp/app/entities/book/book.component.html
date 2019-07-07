@@ -22,7 +22,7 @@
             <th jhiSortBy="name"><span jhiTranslate="libraryApp.book.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="publishYear"><span jhiTranslate="libraryApp.book.publishYear">Publish Year</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="copies"><span jhiTranslate="libraryApp.book.copies">Copies</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="picture"><span jhiTranslate="libraryApp.book.picture">Picture</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="cover"><span jhiTranslate="libraryApp.book.cover">Cover</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="publisher.name"><span jhiTranslate="libraryApp.book.publisher">Publisher</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -34,7 +34,12 @@
                 <td>{{book.name}}</td>
                 <td>{{book.publishYear}}</td>
                 <td>{{book.copies}}</td>
-                <td>{{book.picture}}</td>
+                <td>
+                    <a *ngIf="book.cover" (click)="openFile(book.coverContentType, book.cover)">
+                        <img [src]="'data:' + book.coverContentType + ';base64,' + book.cover" style="max-height: 30px;" alt="book image"/>
+                    </a>
+                    <span *ngIf="book.cover">{{book.coverContentType}}, {{byteSize(book.cover)}}</span>
+                </td>
                 <td>
                     <div *ngIf="book.publisher">
                         <a [routerLink]="['../publisher', book.publisher?.id, 'view' ]" >{{book.publisher?.name}}</a>

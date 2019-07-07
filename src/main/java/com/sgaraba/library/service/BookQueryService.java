@@ -97,9 +97,6 @@ public class BookQueryService extends QueryService<Book> {
             if (criteria.getCopies() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getCopies(), Book_.copies));
             }
-            if (criteria.getPicture() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getPicture(), Book_.picture));
-            }
             if (criteria.getPublisherId() != null) {
                 specification = specification.and(buildSpecification(criteria.getPublisherId(),
                     root -> root.join(Book_.publisher, JoinType.LEFT).get(Publisher_.id)));

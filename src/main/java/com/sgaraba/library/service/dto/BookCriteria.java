@@ -34,8 +34,6 @@ public class BookCriteria implements Serializable, Criteria {
 
     private IntegerFilter copies;
 
-    private StringFilter picture;
-
     private LongFilter publisherId;
 
     private LongFilter authorId;
@@ -49,7 +47,6 @@ public class BookCriteria implements Serializable, Criteria {
         this.name = other.name == null ? null : other.name.copy();
         this.publishYear = other.publishYear == null ? null : other.publishYear.copy();
         this.copies = other.copies == null ? null : other.copies.copy();
-        this.picture = other.picture == null ? null : other.picture.copy();
         this.publisherId = other.publisherId == null ? null : other.publisherId.copy();
         this.authorId = other.authorId == null ? null : other.authorId.copy();
     }
@@ -99,14 +96,6 @@ public class BookCriteria implements Serializable, Criteria {
         this.copies = copies;
     }
 
-    public StringFilter getPicture() {
-        return picture;
-    }
-
-    public void setPicture(StringFilter picture) {
-        this.picture = picture;
-    }
-
     public LongFilter getPublisherId() {
         return publisherId;
     }
@@ -139,7 +128,6 @@ public class BookCriteria implements Serializable, Criteria {
             Objects.equals(name, that.name) &&
             Objects.equals(publishYear, that.publishYear) &&
             Objects.equals(copies, that.copies) &&
-            Objects.equals(picture, that.picture) &&
             Objects.equals(publisherId, that.publisherId) &&
             Objects.equals(authorId, that.authorId);
     }
@@ -152,7 +140,6 @@ public class BookCriteria implements Serializable, Criteria {
         name,
         publishYear,
         copies,
-        picture,
         publisherId,
         authorId
         );
@@ -166,7 +153,6 @@ public class BookCriteria implements Serializable, Criteria {
                 (name != null ? "name=" + name + ", " : "") +
                 (publishYear != null ? "publishYear=" + publishYear + ", " : "") +
                 (copies != null ? "copies=" + copies + ", " : "") +
-                (picture != null ? "picture=" + picture + ", " : "") +
                 (publisherId != null ? "publisherId=" + publisherId + ", " : "") +
                 (authorId != null ? "authorId=" + authorId + ", " : "") +
             "}";

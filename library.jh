@@ -41,7 +41,7 @@ entity Book{
 	name String required maxlength(100)
 	publishYear String required minlength(DEFAULT_MIN_LENGTH) maxlength(DEFAULT_MIN_LENGTH)
 	copies Integer required
-	picture String maxlength(255)
+	cover ImageBlob
 }
 
 entity BorrowedBook{

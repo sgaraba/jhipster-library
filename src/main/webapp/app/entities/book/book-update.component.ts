@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IBook, Book } from 'app/shared/model/book.model';
 import { BookService } from './book.service';
 import { IPublisher } from 'app/shared/model/publisher.model';
@@ -29,16 +29,19 @@ export class BookUpdateComponent implements OnInit {
     name: [null, [Validators.required, Validators.maxLength(100)]],
     publishYear: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(4)]],
     copies: [null, [Validators.required]],
-    picture: [null, [Validators.maxLength(255)]],
+    cover: [],
+    coverContentType: [],
     publisher: [],
     authors: []
   });
 
   constructor(
+    protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected bookService: BookService,
     protected publisherService: PublisherService,
     protected authorService: AuthorService,
+    protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -89,10 +92,53 @@ export class BookUpdateComponent implements OnInit {
       name: book.name,
       publishYear: book.publishYear,
       copies: book.copies,
-      picture: book.picture,
+      cover: book.cover,
+      coverContentType: book.coverContentType,
       publisher: book.publisher,
       authors: book.authors
     });
+  }
+
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
+  }
+
+  setFileData(event, field: string, isImage) {
+    return new Promise((resolve, reject) => {
+      if (event && event.target && event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
+        if (isImage && !/^image\//.test(file.type)) {
+          reject(`File was expected to be an image but was found to be ${file.type}`);
+        } else {
+          const filedContentType: string = field + 'ContentType';
+          this.dataUtils.toBase64(file, base64Data => {
+            this.editForm.patchValue({
+              [field]: base64Data,
+              [filedContentType]: file.type
+            });
+          });
+        }
+      } else {
+        reject(`Base64 data was not set as file could not be extracted from passed parameter: ${event}`);
+      }
+    }).then(
+      () => console.log('blob added'), // sucess
+      this.onError
+    );
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string) {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null
+    });
+    if (this.elementRef && idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
   }
 
   previousState() {
@@ -117,7 +163,8 @@ export class BookUpdateComponent implements OnInit {
       name: this.editForm.get(['name']).value,
       publishYear: this.editForm.get(['publishYear']).value,
       copies: this.editForm.get(['copies']).value,
-      picture: this.editForm.get(['picture']).value,
+      coverContentType: this.editForm.get(['coverContentType']).value,
+      cover: this.editForm.get(['cover']).value,
       publisher: this.editForm.get(['publisher']).value,
       authors: this.editForm.get(['authors']).value
     };

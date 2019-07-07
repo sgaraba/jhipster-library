@@ -78,15 +78,21 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="libraryApp.book.picture" for="field_picture">Picture</label>
-                    <input type="text" class="form-control" name="picture" id="field_picture"
-                           formControlName="picture"/>
-                    <div *ngIf="editForm.get('picture').invalid && (editForm.get('picture').dirty || editForm.get('picture').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('picture').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
-                        This field cannot be longer than 255 characters.
-                        </small>
+                    <label class="form-control-label" jhiTranslate="libraryApp.book.cover" for="field_cover">Cover</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('coverContentType').value + ';base64,' + editForm.get('cover').value" style="max-height: 100px;" *ngIf="editForm.get('cover').value" alt="book image"/>
+                        <div *ngIf="editForm.get('cover').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('coverContentType').value}}, {{byteSize(editForm.get('cover').value)}}</span>
+                            <button type="button" (click)="clearInputImage('cover', 'coverContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_cover" (change)="setFileData($event, 'cover', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
                     </div>
+                    <input type="hidden" class="form-control" name="cover" id="field_cover"
+                           formControlName="cover"/>
+                    <input type="hidden" class="form-control" name="coverContentType" id="field_coverContentType"
+                           formControlName="coverContentType" />
                 </div>
 
                 <div class="form-group">

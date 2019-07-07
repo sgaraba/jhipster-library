@@ -24,6 +24,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -55,8 +56,10 @@ public class BookResourceIT {
     private static final Integer DEFAULT_COPIES = 1;
     private static final Integer UPDATED_COPIES = 2;
 
-    private static final String DEFAULT_PICTURE = "AAAAAAAAAA";
-    private static final String UPDATED_PICTURE = "BBBBBBBBBB";
+    private static final byte[] DEFAULT_COVER = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_COVER = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_COVER_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_COVER_CONTENT_TYPE = "image/png";
 
     @Autowired
     private BookRepository bookRepository;
@@ -116,7 +119,8 @@ public class BookResourceIT {
             .name(DEFAULT_NAME)
             .publishYear(DEFAULT_PUBLISH_YEAR)
             .copies(DEFAULT_COPIES)
-            .picture(DEFAULT_PICTURE);
+            .cover(DEFAULT_COVER)
+            .coverContentType(DEFAULT_COVER_CONTENT_TYPE);
         return book;
     }
     /**
@@ -131,7 +135,8 @@ public class BookResourceIT {
             .name(UPDATED_NAME)
             .publishYear(UPDATED_PUBLISH_YEAR)
             .copies(UPDATED_COPIES)
-            .picture(UPDATED_PICTURE);
+            .cover(UPDATED_COVER)
+            .coverContentType(UPDATED_COVER_CONTENT_TYPE);
         return book;
     }
 
@@ -159,7 +164,8 @@ public class BookResourceIT {
         assertThat(testBook.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testBook.getPublishYear()).isEqualTo(DEFAULT_PUBLISH_YEAR);
         assertThat(testBook.getCopies()).isEqualTo(DEFAULT_COPIES);
-        assertThat(testBook.getPicture()).isEqualTo(DEFAULT_PICTURE);
+        assertThat(testBook.getCover()).isEqualTo(DEFAULT_COVER);
+        assertThat(testBook.getCoverContentType()).isEqualTo(DEFAULT_COVER_CONTENT_TYPE);
     }
 
     @Test
@@ -269,7 +275,8 @@ public class BookResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].publishYear").value(hasItem(DEFAULT_PUBLISH_YEAR.toString())))
             .andExpect(jsonPath("$.[*].copies").value(hasItem(DEFAULT_COPIES)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(DEFAULT_PICTURE.toString())));
+            .andExpect(jsonPath("$.[*].coverContentType").value(hasItem(DEFAULT_COVER_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].cover").value(hasItem(Base64Utils.encodeToString(DEFAULT_COVER))));
     }
     
     @SuppressWarnings({"unchecked"})
@@ -320,7 +327,8 @@ public class BookResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.publishYear").value(DEFAULT_PUBLISH_YEAR.toString()))
             .andExpect(jsonPath("$.copies").value(DEFAULT_COPIES))
-            .andExpect(jsonPath("$.picture").value(DEFAULT_PICTURE.toString()));
+            .andExpect(jsonPath("$.coverContentType").value(DEFAULT_COVER_CONTENT_TYPE))
+            .andExpect(jsonPath("$.cover").value(Base64Utils.encodeToString(DEFAULT_COVER)));
     }
 
     @Test
@@ -508,45 +516,6 @@ public class BookResourceIT {
 
     @Test
     @Transactional
-    public void getAllBooksByPictureIsEqualToSomething() throws Exception {
-        // Initialize the database
-        bookRepository.saveAndFlush(book);
-
-        // Get all the bookList where picture equals to DEFAULT_PICTURE
-        defaultBookShouldBeFound("picture.equals=" + DEFAULT_PICTURE);
-
-        // Get all the bookList where picture equals to UPDATED_PICTURE
-        defaultBookShouldNotBeFound("picture.equals=" + UPDATED_PICTURE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllBooksByPictureIsInShouldWork() throws Exception {
-        // Initialize the database
-        bookRepository.saveAndFlush(book);
-
-        // Get all the bookList where picture in DEFAULT_PICTURE or UPDATED_PICTURE
-        defaultBookShouldBeFound("picture.in=" + DEFAULT_PICTURE + "," + UPDATED_PICTURE);
-
-        // Get all the bookList where picture equals to UPDATED_PICTURE
-        defaultBookShouldNotBeFound("picture.in=" + UPDATED_PICTURE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllBooksByPictureIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        bookRepository.saveAndFlush(book);
-
-        // Get all the bookList where picture is not null
-        defaultBookShouldBeFound("picture.specified=true");
-
-        // Get all the bookList where picture is null
-        defaultBookShouldNotBeFound("picture.specified=false");
-    }
-
-    @Test
-    @Transactional
     public void getAllBooksByPublisherIsEqualToSomething() throws Exception {
         // Initialize the database
         Publisher publisher = PublisherResourceIT.createEntity(em);
@@ -594,7 +563,8 @@ public class BookResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].publishYear").value(hasItem(DEFAULT_PUBLISH_YEAR)))
             .andExpect(jsonPath("$.[*].copies").value(hasItem(DEFAULT_COPIES)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(DEFAULT_PICTURE)));
+            .andExpect(jsonPath("$.[*].coverContentType").value(hasItem(DEFAULT_COVER_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].cover").value(hasItem(Base64Utils.encodeToString(DEFAULT_COVER))));
 
         // Check, that the count call also returns 1
         restBookMockMvc.perform(get("/api/books/count?sort=id,desc&" + filter))
@@ -646,7 +616,8 @@ public class BookResourceIT {
             .name(UPDATED_NAME)
             .publishYear(UPDATED_PUBLISH_YEAR)
             .copies(UPDATED_COPIES)
-            .picture(UPDATED_PICTURE);
+            .cover(UPDATED_COVER)
+            .coverContentType(UPDATED_COVER_CONTENT_TYPE);
 
         restBookMockMvc.perform(put("/api/books")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -661,7 +632,8 @@ public class BookResourceIT {
         assertThat(testBook.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testBook.getPublishYear()).isEqualTo(UPDATED_PUBLISH_YEAR);
         assertThat(testBook.getCopies()).isEqualTo(UPDATED_COPIES);
-        assertThat(testBook.getPicture()).isEqualTo(UPDATED_PICTURE);
+        assertThat(testBook.getCover()).isEqualTo(UPDATED_COVER);
+        assertThat(testBook.getCoverContentType()).isEqualTo(UPDATED_COVER_CONTENT_TYPE);
     }
 
     @Test

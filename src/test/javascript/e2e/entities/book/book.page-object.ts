@@ -30,7 +30,7 @@ export class BookUpdatePage {
   nameInput = element(by.id('field_name'));
   publishYearInput = element(by.id('field_publishYear'));
   copiesInput = element(by.id('field_copies'));
-  pictureInput = element(by.id('field_picture'));
+  coverInput = element(by.id('file_cover'));
   publisherSelect = element(by.id('field_publisher'));
   authorSelect = element(by.id('field_author'));
 
@@ -70,12 +70,12 @@ export class BookUpdatePage {
     return await this.copiesInput.getAttribute('value');
   }
 
-  async setPictureInput(picture) {
-    await this.pictureInput.sendKeys(picture);
+  async setCoverInput(cover) {
+    await this.coverInput.sendKeys(cover);
   }
 
-  async getPictureInput() {
-    return await this.pictureInput.getAttribute('value');
+  async getCoverInput() {
+    return await this.coverInput.getAttribute('value');
   }
 
   async publisherSelectLastOption(timeout?: number) {

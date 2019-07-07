@@ -41,12 +41,9 @@
             ]
         },
         {
-            "fieldName": "picture",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 255
+            "fieldName": "cover",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
         }
     ],
     "relationships": [
@@ -67,7 +64,7 @@
             "ownerSide": true
         }
     ],
-    "changelogDate": "20190707105538",
+    "changelogDate": "20190707114822",
     "entityTableName": "book",
     "dto": "no",
     "pagination": "pagination",

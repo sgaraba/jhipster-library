@@ -43,9 +43,12 @@ public class Book implements Serializable {
     @Column(name = "copies", nullable = false)
     private Integer copies;
 
-    @Size(max = 255)
-    @Column(name = "picture", length = 255)
-    private String picture;
+    @Lob
+    @Column(name = "cover")
+    private byte[] cover;
+
+    @Column(name = "cover_content_type")
+    private String coverContentType;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -119,17 +122,30 @@ public class Book implements Serializable {
         this.copies = copies;
     }
 
-    public String getPicture() {
-        return picture;
+    public byte[] getCover() {
+        return cover;
     }
 
-    public Book picture(String picture) {
-        this.picture = picture;
+    public Book cover(byte[] cover) {
+        this.cover = cover;
         return this;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setCover(byte[] cover) {
+        this.cover = cover;
+    }
+
+    public String getCoverContentType() {
+        return coverContentType;
+    }
+
+    public Book coverContentType(String coverContentType) {
+        this.coverContentType = coverContentType;
+        return this;
+    }
+
+    public void setCoverContentType(String coverContentType) {
+        this.coverContentType = coverContentType;
     }
 
     public Publisher getPublisher() {
@@ -195,7 +211,8 @@ public class Book implements Serializable {
             ", name='" + getName() + "'" +
             ", publishYear='" + getPublishYear() + "'" +
             ", copies=" + getCopies() +
-            ", picture='" + getPicture() + "'" +
+            ", cover='" + getCover() + "'" +
+            ", coverContentType='" + getCoverContentType() + "'" +
             "}";
     }
 }
