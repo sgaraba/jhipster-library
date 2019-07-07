@@ -1,0 +1,26 @@
+{
+  "libraryApp": {
+    "client": {
+      "home": {
+        "title": "Clients",
+        "createLabel": "Создать новый Client",
+        "createOrEditLabel": "Создать или отредактировать Client",
+        "notFound": "No Client found"
+      },
+      "created": "Новый Client создан с идентификатором {{ param }}",
+      "updated": "Client обновлен с идентификатором {{ param }}",
+      "deleted": "Client удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Client {{ id }}?"
+      },
+      "detail": {
+        "title": "Client"
+      },
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "address": "Address",
+      "phone": "Phone"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "libraryApp": {
+    "client": {
+      "home": {
+        "title": "Clients",
+        "createLabel": "Creeare o nouă entitate Client",
+        "createOrEditLabel": "Creeare sau editare Client",
+        "notFound": "No Client found"
+      },
+      "created": "A fost creată o nouă entitate Client cu identificatorul {{ param }}",
+      "updated": "Client cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Client cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Client {{ id }}?"
+      },
+      "detail": {
+        "title": "Client"
+      },
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "address": "Address",
+      "phone": "Phone"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "libraryApp": {
+    "publisher": {
+      "home": {
+        "title": "Publishers",
+        "createLabel": "Creeare o nouă entitate Publisher",
+        "createOrEditLabel": "Creeare sau editare Publisher",
+        "notFound": "No Publisher found"
+      },
+      "created": "A fost creată o nouă entitate Publisher cu identificatorul {{ param }}",
+      "updated": "Publisher cu identificatorul {{ param }} a fost actualizată",
+      "deleted": "Publisher cu identificatorul {{ param }} a fost ștearsă",
+      "delete": {
+        "question": "Sunteți sigur că doriți să ștergeți Publisher {{ id }}?"
+      },
+      "detail": {
+        "title": "Publisher"
+      },
+      "name": "Name"
+    }
+  }
+}
