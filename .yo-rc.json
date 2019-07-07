@@ -33,7 +33,9 @@
     "clientTheme": "none",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
-    "otherModules": []
+    "otherModules": [],
+    "herokuAppName": "sgaraba-library",
+    "herokuDeployType": "git"
   },
   "entities": ["Publisher", "Author", "Client", "Book", "BorrowedBook"]
 }
