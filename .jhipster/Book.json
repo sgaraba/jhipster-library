@@ -55,7 +55,7 @@
             "otherEntityName": "publisher",
             "otherEntityRelationshipName": "book",
             "relationshipName": "publisher",
-            "otherEntityField": "id",
+            "otherEntityField": "name",
             "ownerSide": true
         },
         {
@@ -67,7 +67,7 @@
             "ownerSide": true
         }
     ],
-    "changelogDate": "20190707103304",
+    "changelogDate": "20190707105238",
     "entityTableName": "book",
     "dto": "no",
     "pagination": "pagination",

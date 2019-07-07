@@ -50,7 +50,7 @@ entity BorrowedBook{
 
 
 relationship OneToOne {
-	Book{publisher} to Publisher
+	Book{publisher(name)} to Publisher
 	BorrowedBook{book(name)} to Book
     BorrowedBook{Client(email)} to Client
 }

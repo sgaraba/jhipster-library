@@ -28,7 +28,7 @@
                 <dt><span jhiTranslate="libraryApp.book.publisher">Publisher</span></dt>
                 <dd>
                     <div *ngIf="book.publisher">
-                        <a [routerLink]="['/publisher', book.publisher?.id, 'view']">{{book.publisher?.id}}</a>
+                        <a [routerLink]="['/publisher', book.publisher?.id, 'view']">{{book.publisher?.name}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="libraryApp.book.author">Author</span></dt>

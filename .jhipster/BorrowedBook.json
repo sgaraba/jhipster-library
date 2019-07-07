@@ -24,7 +24,7 @@
             "ownerSide": true
         }
     ],
-    "changelogDate": "20190707103305",
+    "changelogDate": "20190707105239",
     "entityTableName": "borrowed_book",
     "dto": "no",
     "pagination": "pagination",

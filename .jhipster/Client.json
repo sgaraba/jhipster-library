@@ -46,7 +46,7 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20190707103303",
+    "changelogDate": "20190707105237",
     "entityTableName": "client",
     "dto": "no",
     "pagination": "pagination",
