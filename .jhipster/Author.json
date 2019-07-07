@@ -30,7 +30,7 @@
             "ownerSide": false
         }
     ],
-    "changelogDate": "20190707105236",
+    "changelogDate": "20190707105536",
     "entityTableName": "author",
     "dto": "no",
     "pagination": "pagination",

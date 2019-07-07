@@ -59,7 +59,7 @@ relationship ManyToMany {
 	 Book{author(firstName)} to Author{book}
 }
 
-filter *
+filter Book, Client, Author, BorrowedBook, Publisher
 
 paginate Book, Client, Author, BorrowedBook, Publisher with pagination
 

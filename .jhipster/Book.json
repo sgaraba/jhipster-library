@@ -67,7 +67,7 @@
             "ownerSide": true
         }
     ],
-    "changelogDate": "20190707105238",
+    "changelogDate": "20190707105538",
     "entityTableName": "book",
     "dto": "no",
     "pagination": "pagination",
